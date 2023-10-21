@@ -1,17 +1,47 @@
 <!DOCTYPE html>
-<html>
-    <head>
+<html lang="en">
+<head>
+  </head>
+  <body>
+ 
+    <button onclick="sendPatientData()">
+      Click To Check CDK
+    </button>
+    <script>
+      function sendPatientData(){
+        var p_data_array =[50.00,70.00, 1.01, 1.00, 0.00, 1.00,1.00, 0.00,  0.00, 219.00, 176.00 , 13.80, 136.00, 4.50,  8.60, 24.00, 13200.00, 2.70,1.00, 0.00, 0.00,0.00, 1.00,1.00]
+        var p_data_ja= {"data":p_data_array}
+        const cdk_url=  {{ url_for('ckd_checker')|tojson }}
+        fetch(cdk_url,{
+          "method": "POST",
+          "headers": {"Content-Type": "application/json"},
+          "body": JSON.stringify(p_data_ja)})
+          .then(response => response.json())
+          .then((data) => {
+            console.log("has CDK?",data.cdk_prediction)
+          })
+          .catch(error => console.log(error))
+          .finally(console.log("Finally"))
+    }
+    </script>
+  
+    <form action="{{ url_for('kidney_stone') }}" enctype="multipart/form-data" method="POST">
+      <input name="img" type="file"/>
+      <input type="submit"/>
+  </form>
+   
+  {% if img %}
+  <h1>Rendered Image</h1>
+  <img src="{{img}}">
+  {% else %}
+  <h1>Image will be render here...</h1>
+  {% endif %}
 
-    </head>
-    <body>
-        Index.html 
-        <form method="post" >
-            <textarea name="msg-content">
-            </textarea>
-            <button>
-                Check
-            </button>
-        </form>
-        <h2>{{message_data}}</h2>
-    </body>
+   
+
+
+    </body> 
 </html>
+
+
+
