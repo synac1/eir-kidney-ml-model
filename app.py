@@ -49,7 +49,9 @@ def kidney_stone():
     filename = secure_filename(file.filename)
     file.save(os.path.join(app.config['UPLOAD'], filename))
     img = os.path.join(app.config['UPLOAD'], filename)
-    return  jsonify({'prediction': check_kidney_stone(img)})
+    prediction = check_kidney_stone(img)
+    os.remove(img)
+    return  jsonify({'prediction': prediction})
 
  
 if __name__ == '__main__':
