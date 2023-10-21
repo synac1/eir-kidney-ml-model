@@ -1,18 +1,14 @@
 from flask import Flask, render_template, request as req, jsonify
-import numpy as np
 from werkzeug.utils import secure_filename
-
 import os
 from kidney_diagnosis  import  check_kidney_stone, check_cdk
-app = Flask(__name__)
-import io 
-from fastai.data.external import *
-from fastai.vision import *
-upload_folder = os.path.join('static', 'uploads')
-from PIL import Image 
+
 import warnings
 warnings.filterwarnings('ignore')
- 
+
+app = Flask(__name__)
+
+upload_folder = os.path.join('static', 'uploads')
 app.config['UPLOAD'] = upload_folder
 
 @app.route('/', methods=['GET', 'POST'])
