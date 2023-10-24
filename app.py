@@ -2,12 +2,13 @@ from flask import Flask, render_template, request as req, jsonify
 from werkzeug.utils import secure_filename
 import os
 from kidney_diagnosis  import  check_kidney_stone, check_cdk
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 import warnings
 warnings.filterwarnings('ignore')
 
 app = Flask(__name__)
 CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 upload_folder = os.path.join('static', 'uploads')
 app.config['UPLOAD'] = upload_folder
 
@@ -30,6 +31,7 @@ def testCDK():
 
 
 @app.route('/api/check_ckd', methods=['POST'])
+@cross_origin()
 def ckd_checker():
     data = req.json
     #print(data.get('data'))
@@ -40,6 +42,7 @@ def ckd_checker():
 
 
 @app.route('/api/check_kidney_stone', methods=['POST'])
+@cross_origin()
 def kidney_stone():
     file = req.files['img']
     filename = secure_filename(file.filename)
