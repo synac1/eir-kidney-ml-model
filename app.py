@@ -2,12 +2,12 @@ from flask import Flask, render_template, request as req, jsonify
 from werkzeug.utils import secure_filename
 import os
 from kidney_diagnosis  import  check_kidney_stone, check_cdk
-
+from flask_cors import CORS
 import warnings
 warnings.filterwarnings('ignore')
 
 app = Flask(__name__)
-
+CORS(app)
 upload_folder = os.path.join('static', 'uploads')
 app.config['UPLOAD'] = upload_folder
 
