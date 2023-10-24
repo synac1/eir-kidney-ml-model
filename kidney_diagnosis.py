@@ -23,10 +23,10 @@ def check_kidney_stone(xrayImageOfKidney):
        pathlib.PosixPath = posix_backup
        
 def check_cdk(array_of_values):
-    modelpath=os.path.join(path, "dtc_ckd.pkl")
+    modelpath=os.path.join(path, "models", "dtc_ckd.pkl")
     dtc = pickle.load(open(modelpath, 'rb'))
     r = dtc.predict([array_of_values])
-    return r [0]
+    return r[0] 
 
 
 

@@ -36,7 +36,7 @@ def ckd_checker():
     data = req.json
     #print(data.get('data'))
     result = check_cdk(data.get('data'))
-    #print("Has CDK?", bool(result))
+    #print("Has CDK?", result)
     return jsonify({ 'cdk_prediction': bool(result)})
                     
 
@@ -49,6 +49,7 @@ def kidney_stone():
     file.save(os.path.join(app.config['UPLOAD'], filename))
     img = os.path.join(app.config['UPLOAD'], filename)
     prediction = check_kidney_stone(img)
+    print(prediction)
     os.remove(img)
     return  jsonify({'prediction': prediction})
 
